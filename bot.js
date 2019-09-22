@@ -1,9 +1,9 @@
 const Telegraf = require("telegraf");
 require('dotenv').config();
-const session = require("telegraf/session");
+const session = require("telegraf/session"), LocalSession = require("telegraf-session-local");
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN), axios = require("axios");
 
-bot.use(session());
+bot.use((new LocalSession({database: ".data/session.json"})).middleware());
 
 bot.start(ctx => ctx.reply('Allo Bruv!'));
 
